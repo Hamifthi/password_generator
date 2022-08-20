@@ -1,14 +1,13 @@
+from typing import Union
 from pydantic import BaseModel, Field
-
-from core.config import settings
 
 
 class PasswordFeatures(BaseModel):
-    length: int = Field(default=settings.PASSWORD_MINIMUM_LENGTH, lt=200)
-    include_numbers: bool = Field(default=settings.INCLUDE_NUMBERS)
-    include_lowercase_chars: bool = Field(default=settings.INCLUDE_LOWERCASE_CHARS)
-    include_uppercase_chars: bool = Field(default=settings.INCLUDE_UPPERCASE_CHARS)
-    include_special_chars: bool = Field(default=settings.INCLUDE_SPECIAL_CHARS)
+    password_length: Union[None, int] = Field(gt=8, lt=200)
+    include_numbers: Union[None, bool] = None
+    include_lowercase_chars: Union[None, bool] = None
+    include_uppercase_chars: Union[None, bool] = None
+    include_special_chars: Union[None, bool] = None
 
 
 class Password(BaseModel):
