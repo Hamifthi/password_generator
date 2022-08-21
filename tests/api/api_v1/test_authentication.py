@@ -75,8 +75,8 @@ def test_create_random_password_endpoint_with_at_least_one_options_true(client: 
     response = response.json()
     generated_password = response["generated_password"]
     assert len(generated_password) == password_length
-    pattern = compile_search_regex()
-    found_object = re.search(pattern, generated_password)
+    check_characters_pattern = compile_search_regex()
+    found_object = re.search(check_characters_pattern, generated_password)
     assert found_object is not None
     assert found_object.string
 
@@ -90,7 +90,7 @@ def test_create_random_password_endpoint_with_all_options_true(client: TestClien
     response = response.json()
     generated_password = response["generated_password"]
     assert len(generated_password) == password_length
-    pattern = compile_search_regex()
-    found_object = re.search(pattern, generated_password)
+    check_characters_pattern = compile_search_regex()
+    found_object = re.search(check_characters_pattern, generated_password)
     assert found_object is not None
     assert found_object.string
