@@ -1,0 +1,20 @@
+image: tiangolo/uvicorn-gunicorn-fastapi:python3.6
+
+stages:
+  - build
+
+build:
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    APP_RELEASE: $HUB_USERNAME/password-generator:latest
+  stage: build
+  before_script:
+    - docker login -u $HUB_USERNAME -p $HUB_PASSWORD
+  script:
+    - docker build $APP_RELEASE --tag $APP_RELEASE -f ./Dockerfile .
+    - docker run $APP_RELEASE test
+    - docker push $APP_RELEASE
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
