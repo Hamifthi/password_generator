@@ -13,7 +13,7 @@ build:
   before_script:
     - docker login -u $HUB_USERNAME -p $HUB_PASSWORD
   script:
-    - docker build $APP_RELEASE --tag $APP_RELEASE -f ./Dockerfile .
+    - docker build --tag $APP_RELEASE -f ./dockerfile .
     - docker run $APP_RELEASE test
     - docker push $APP_RELEASE
   rules:
